@@ -1,0 +1,42 @@
+In a C program, the following struct is used to represent a product in a warehouse:  
+
+typedef struct {char serialID[13]; int n_items;} product;
+
+The serialID is a univocal identifier for a product, represented by an alphanumerical string of 12 characters without spaces. n_items represents the number of items that are available for the same product.  
+
+The list of products currently stored in the warehouse is contained in a text file, whose name is passed as argument from the command line. This file contains records of a maximum of 200 different products, reported in no specific order. Each line of the file reports the serialID and the number of items of a product, with spaces as separators. You can assume that the file is not empty, and that each product is reported only once in the file.  
+
+---
+
+Consider the following fragment of code:  
+
+int main (int argc, char *argv[]) {
+    product listProducts[200], *refProducts[200];
+    int i, nprod = readProducts(listProducts, 200, argv[1]);
+
+    for (i = 0; i < nprod; i++)
+        refProducts[i] = &listProducts[i];
+
+    sortProducts(refProducts, nprod);
+    // ... rest of the program (omitted)
+    return 0;
+}
+
+---
+
+1) The function readProducts reads the input file and stores the data of the products into the array listProducts, returning the number of stored products to the caller.  
+
+2) The function sortProducts sorts the products in alphabetical order by serialID, by applying a selection sort algorithm. The function should not modify the original order of the array listProducts. Instead, it should sort an array of pointers to product (see array refProducts).  
+
+The rest of the program is omitted.  
+
+You are required to implement the functions readProducts and sortProducts. The prototypes of the functions must be compatible with the corresponding function calls in the given code.  
+
+---
+
+Example of content of the input file:  
+
+XY237H24ABCD 24
+ZH117H24ABCD 2
+AR217H24AACD 13
+BB117H24AACD 1

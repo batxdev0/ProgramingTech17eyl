@@ -1,0 +1,49 @@
+In a C program, the following struct is used to represent a student:  
+
+typedef struct {char matricola[12]; exam* passedExams; int nExams;} student;
+
+where matricola is the univocal ID of the student, passedExams is a pointer to an array of maximum 30 elements that contains the exams passed by the student, and nExams is the number of exams passed until now.  
+
+An exam is represented by the following struct:  
+
+typedef struct {char examName[20]; int score} exam;
+
+where examName is the name of the exam and score is the score obtained in a 18 to 31 range, with 31 meaning “30 cum laude”.  
+
+The information about the students and their exams is stored in a text file whose name is passed as first argument from command line. The format of the input file is not described, because it is not significant to solve the exercise.  
+
+---
+
+Consider the following main function:  
+
+int main (int argc, char* argv[]) {
+    student listStudents[500], *refBestStudents[500];
+    int nstud = readStudents(listStudents, 500, argv[1]);
+    int nBest = selectBest(listStudents, nstud, refBestStudents, atoi(argv[2]));
+    if (nBest > 0)
+        printBestStudents(refBestStudents, nBest);
+    // rest of the program (omitted)
+    return 0;
+}
+
+---
+
+1. The function readStudents (code omitted) reads the input file and stores the data of the students in the array listStudents, returning to the caller the number of students stored into the array.  
+
+2. The function selectBest selects all the students of listStudents that have a certain minimum number of passed exams with “30 cum laude”. This minimum number of exams is passed as second argument from command line. The function should store the pointers to the selected students in the array refBestStudents and return the total number of selected students to the caller.  
+
+3. The function printBestStudents prints on the screen the matricola ID of all the selected students, one per line.  
+
+---
+
+The rest of the program is omitted. You are required to implement only the functions selectBest and printBestStudents.  
+
+N.B. The prototypes of the implemented functions must be compatible with the corresponding function calls in the given code! Use only static memory allocation!  
+
+---
+
+Example of execution from the Windows command line:  
+
+C:\program.exe students.txt 3
+
+In the example above, the user is asking the program to read the information about the students and their exams from the file students.txt, and to print on the screen the matricola IDs of all the students that have at least 3 passed exams with 30 cum laude.  

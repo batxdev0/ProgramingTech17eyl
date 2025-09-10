@@ -1,0 +1,52 @@
+In a C program, the following struct is used to represent a product in a warehouse:  
+
+typedef struct {char serialID[15]; int n_items;} product;
+
+The serialID is an univocal identifier for a product, represented by an alphanumerical string without spaces. n_items represents the number of items that are available for the corresponding product.  
+
+The list of products currently stored in the warehouse is contained in a text file, whose name is passed as the first argument from the command line. This file contains records of a maximum of 500 different products, reported in no specific order. Each line of the file reports the serialID and the number of items of a product, with spaces as separators. The file may contain multiple instances of the same product, or no products at all.  
+
+---
+
+Consider the following fragment of program:  
+
+int main (int argc, char *argv[]) {
+    product listProducts[500], *refProducts[500];
+
+    int nprod = readProducts(listProducts, 500, argv[1]);
+
+    int nsel = selectProducts(listProducts, nprod, refProducts, argv[2]);
+
+    // ... rest of the program (omitted)
+    return 0;
+}
+
+---
+
+1) The function readProducts reads the input file and stores the data of the products in the array listProducts, returning the number of stored products to the caller. In case the same product appears more than once in the file, it should be stored only once in the array, and the corresponding number of items should be summed to the pre-existing record.  
+
+2) The function selectProducts selects all the products of listProducts whose number of items exceeds a certain threshold, that is a positive integer value given as second argument from the command line when executing the program. The function should store the pointers to the selected products in the array refProducts, and return the total number of selected products to the caller.  
+
+---
+
+The rest of the program is omitted.  
+
+You are required to implement the functions readProducts and selectProducts. The prototypes of the functions must be compatible with the corresponding function calls in the given code.  
+
+---
+
+EXAMPLE OF CONTENT OF THE INPUT FILE input.txt:  
+
+XY237H24ABCDQQ 24
+ZH117H24ABCDQQ 2
+AR217H24AACDQQ 13
+BB117H24AACDQQ 1
+ZH117H24ABCDQQ 2
+
+---
+
+Supposing to execute the program from the Windows command line as:  
+
+C:\progr.exe input.txt 3
+
+the selected products should be XY237H24ABCDQQ, ZH117H24ABCDQQ, and AR217H24AACDQQ.  

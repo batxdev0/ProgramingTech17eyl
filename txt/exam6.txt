@@ -1,0 +1,41 @@
+In a C program, a student is represented by the following struct:  
+
+typedef struct {
+    char name[30];
+    int n;       // number of passed exams
+    float avg;   // average score of the passed exams
+} student;
+
+The data of a group of students (maximum 100) is reported in a text file, one student per line, in the following format:  
+
+name score_1 score_2 score_3 … score_n
+
+where each score is an integer value in the [18,30] range. Each student may have passed from 0 up to a maximum of 20 exams. Assume that names do not contain any spaces and have a maximum of 29 characters. There are no students with the same name.  
+
+---
+
+1) Write a function readStudents that takes as input the name of the input file and stores the data of the students into an array of type student. The total number of students that were correctly read should be returned to the caller as return value. The function should have the following prototype:  
+
+int readStudents(char* filename, student s[], int n);
+
+where s is the array of students where to store the data, and n the dimension of the array.  
+
+---
+
+2) Write another function sortStudents that takes as input the array of students as they were read from the file, and sorts them by increasing average score, by implementing a Selection Sort as the sorting algorithm. The prototype of the function should be the following:  
+
+void sortStudents(student s[], int ns);
+
+where s is the array of students and ns the number of students.  
+
+---
+
+NB. You are required to implement only the given functions, and not the whole C program.  
+
+---
+
+EXAMPLE OF INPUT FILE CONTENT:  
+
+Cicciopasticcio 18 23 30 21 17
+Voldemort
+Superwoman 30 28 30 30 30 29 30 30 30 30  

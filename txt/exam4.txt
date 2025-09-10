@@ -1,0 +1,36 @@
+In a C program, a student and a passed exam are respectively represented by the following structs:  
+
+typedef struct {
+    char matricola[7];    // matricola ID
+    exam* array_of_exams; // pointer to the array of passed exams
+    int n;                // number of exams stored in array_of_exams
+} student;
+
+typedef struct {
+    char subject[30]; // name of the subject
+    int score;        // obtained score, in the 18 to 30 range
+} exam;
+
+---
+
+Assume that the data about a course with 300 students and of their respective passed exams have already been read from an input file, and the array  
+
+student s[300];
+
+has been initialized accordingly. If a student did not pass any exams, the corresponding field array_of_exams is equal to NULL, and n is equal to 0.  
+
+---
+
+1) Write a function selectStudents that takes the array s and its dimension n as input and selects the students that have passed at least ne exams. The function should store the pointers to the selected students in the array selSt and return the number of selected students nsel to the caller. The function should have the following prototype:  
+
+int selectStudents(student s[], int n, int ne, student* selSt[]);
+
+---
+
+2) Write a function bestStudent that takes the array s and its dimension n as input and returns to the caller the pointer to the student with the highest average score (for simplicity, assume there is no possibility of a tie), or NULL if none of the students have passed exams. The function should have the following prototype:  
+
+student* bestStudent(student s[], int n);
+
+---
+
+NB. You are required to implement only the given functions, and not the whole C program. DO NOT use dynamic allocation!  

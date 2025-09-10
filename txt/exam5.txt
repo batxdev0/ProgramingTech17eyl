@@ -1,0 +1,58 @@
+The main function of a simple encoding-decoding program is executed by command line either with arguments -enc fileIn fileOut, or -dec fileIn fileOut, where fileIn and fileOut are the names of the input and the output files, and -enc (or -dec) specifies whether to perform an encoding or a decoding operation.  
+
+#include <stdio.h>
+#include <string.h>
+int main(int argc, char* argv[]) {
+    char table[500][30];
+    readEncodingTable(table, "encoding.txt");
+    if (strcmp(argv[1], "-enc") == 0)
+        encoding(argv[2], argv[3], table);
+    else if (strcmp(argv[1], "-dec") == 0)
+        decoding(argv[2], argv[3], table);
+    else fprintf(stderr, "Execution error");
+    return 0;
+}
+
+---
+
+The main function does the following:  
+
+- Reads the encoding table from a file "encoding.txt", by calling a function named readEncodingTable. The file reports in each line an integer code in the [0,500) range and, separated by a space, a corresponding string (maximum 29 alphabetical characters, all uppercase). The strings are not reported in order of code and may be less than 500. Each code corresponds to a different string. The function stores the encoding table in a 500x30 matrix of char named table, exploiting the index-value relation to represent the code-string correspondence (the codes not listed in the “encoding.txt” file should be associated with an empty string).  
+
+- In case of argument -enc, the program calls the function encoding. This function opens the input file, which contains a sequence of strings (maximum 29 alphabetical characters, all uppercase) separated by spaces, and prints an output file, where each string is replaced by the corresponding integer code. In case the string is not present in the given encoding table, the printed code is -1.  
+
+- In case of argument -dec, the program calls the function decoding. This function opens the input file, which contains a sequence of integers separated by spaces, and prints an output file, where each integer is replaced by the corresponding string based on the given encoding table. If the integer value is not a valid encoding code, it is ignored.  
+
+---
+
+You are required to implement only the functions encoding and decoding. The prototypes of these functions should be coherent with the corresponding function calls in the given code.  
+
+---
+
+Example of execution  
+
+Example of file encoding.txt:  
+
+0 APPLE
+4 ORANGE
+2 BANANA
+
+Suppose that you want to encode the following input file, named fileS.txt:  
+
+BANANA GRAPES APPLE ORANGE
+
+By executing the program (in Windows) as:  
+
+C:\program -enc fileS.txt fileI.txt
+
+you will obtain the following output file fileI.txt with the following content:  
+
+2 -1 0 4
+
+Vice versa, if you want to decode the existing file fileI.txt, you may execute as:  
+
+C:\program -dec fileI.txt fileS2.txt
+
+By doing so, you would obtain as output the following file fileS2.txt:  
+
+BANANA APPLE ORANGE  
