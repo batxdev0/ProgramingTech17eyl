@@ -1,0 +1,69 @@
+ 6 EXERCISE 6 (8 points)    USE YOUR OWN PAPER!!!  
+ 
+A C program manages the activity of a hair salon. Each service performed in the salon is represented by the 
+following struct:  
+ 
+typedef struct {  
+    char operatorID[10];    // Alphanumeric ID of the operator  
+    char date[11];          // Date of the service in dd/mm/yyyy format  
+    float revenue;          // Revenue from the perfomed service (in euro)  
+} Service;  
+ 
+It is assumed that the data related to services carried out during the January–April 2025  period (at most 500 
+records) are stored in a text file, whose name is passed as a command -line argument.  
+The main function of the program is as follows:  
+ 
+int main(int argc, char* argv[]) {  
+    char* month Names[] = {"January", "February", "March", "April"};  
+    Service serviceList[500];  
+    int nServices;  
+    nServices = readServices(argv[1], serviceList, 500);  
+    printf("The month with the highest total revenue is %s \n",               
+       monthNames[bestMonth (serviceList, nServices)]);  
+    printf("The ID of the operator who performed the most expensive service is  
+       %s\n", bestOperator (serviceList, nServices));  
+    return 0;  
+} 
+ 
+Knowing that:  
+- the function readServices reads the data from the input file and stores it in the array serviceList,  
+returning the total number of services  (assume it is higher than 0 and lower or equal to 500).  
+- the first printf  prints a message showing the name of the month with the highest total revenue . 
+(assume that all services are within the January –April 2025 period, that all dates are correctly formatted, 
+and there are no ties);  
+- the second printf prints a message showing the ID of the operator who performed the most expensive 
+individual service (assume there are no ties);  
+you are required to implement the functions bestMonth  and bestOperator . The return types, as well as the 
+number , order,  and types of the formal parameters, must be inferred based on how the functions are invoked in 
+main.  
+ 
+NB. You are asked  to implement only the  two  required functions . YOU CANNOT use dynamic allocation, or 
+variable length arrays!  
+ 
+int bestMonth (Service services[], int n) {  
+    float monthlyRevenue[4] = {0.0, 0.0, 0.0, 0.0}; // For Jan to Apr  
+    for (int i = 0; i < n; i++) {  
+        int month;  
+        sscanf(services[i].date, "%*d/%d/%*d", &month);  
+        monthlyRevenue[month - 1] += services[i].revenue;  
+    } 
+    int best = 0;  
+    for (int i = 1; i < 4; ++i) {  
+        if (monthlyRevenue[i] > monthlyRevenue[best]) {  
+            best = i;  
+        } 
+    } 
+    return best;  
+} 
+ 
+ 7 char* bestOperator (Service services[], int n) {  
+    int maxIndex = 0;  
+    for (int i = 1; i < n; ++i)  
+        if (services[i].revenue > services[maxIndex].revenue) {  
+            maxIndex = i;  
+    return services[maxIndex].operatorID;  
+} 
+ 
+ 
+ 
+ 

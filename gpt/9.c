@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
+// ->diabolical zorlukta bir sınavdı.
+
 /*
 typedef struct { 
     char serialID[13];  // exactly 12 alphanumeric chars + '\0'
